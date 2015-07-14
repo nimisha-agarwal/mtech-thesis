@@ -1,0 +1,98 @@
+% prelude.tex
+%   - titlepage
+%   - dedication (optional)
+%   - approval sheet
+%   - course certificate
+%   - table of contents, list of tables and list of figures
+%   - nomenclature
+%   - abstract
+%============================================================================
+
+
+\clearpage\pagenumbering{roman}  % This makes the page numbers Roman (i, ii, etc)
+
+
+
+% TITLE PAGE
+%   - define \title{} \author{} \date{}
+\title{Online Tutoring System for Compilers}
+\author{Nimisha Agarwal}
+\date{July, 2015}
+
+%  - Roll number, required for title page, approval sheet, and
+%    certificate of course work 
+\rollnum{13111038} 
+
+%   - The default degree is ``Doctor of Philosophy''
+%     (unless the document style msthesis is specified
+%      and then the default degree is ``Master of Science'')
+%     Degree can be changed using the command \iitbdegree{}
+\iitbdegree{Master of Technology}
+
+%   - The default report type is preliminary report.
+%      * for a PhD thesis, specify \thesis
+\thesis
+%      * for a M.Tech./M.Phil./M.Des./M.S. dissertation, specify \dissertation
+%\dissertation
+%      * for a DIIT/B.Tech./M.Sc.project report, specify \project
+%\project
+%      * for any other type, use  \reporttype{}
+%\reporttype{ReportType}
+
+%   - The default department is ``Unknown Department''
+%     The department can be changed using the command \department{}
+\department{Computer Science \& Engineering}
+
+%    - Set the guide's name
+\setguide{Prof Amey Karkare}
+\setguidedept{Department of Computer Science \& Engineering}
+
+%   - once the above are defined, use \maketitle to generate the titlepage
+\maketitle
+
+%--------------------------------------------------------------------%
+% CERTIFICATE
+%     The first page after the title page.
+\makecertificate
+
+%--------------------------------------------------------------------%
+% COPYRIGHT PAGE
+%   - To include a copyright page use \copyrightpage
+% \copyrightpage
+
+%--------------------------------------------------------------------%
+% ABSTRACT
+\begin{abstract}
+Online Education System is an emerging field nowadays. It provides the student with a virtual environment for learning the course. As these are the online systems, they can be made available to people in any part of the world without the instructor to be physically present over there. They also help student in solving their problem at any hour of the day. There are many such systems available for the different courses.
+
+We have developed a system Online Tutoring System for Compilers, to generate problems automatically. We have implemented it for the parsing phase of Compilers. It automatically generates problems for the various techniques involved in this phase. It also evaluates the solution given by the student for these problems and also generate hint questions to reach to the correct solution if the solution given by the student is incorrect. The hint questions are also of different types for different techniques which involves automatic generation of input string for the wrong entered cell of LL Parsing Table.
+
+We have tested the system on various grammars. It is showing good results on all the CFGs we have tested yet. It also performs left factoring of the grammar if it is required as well as test the grammar if it is LR or not before processing for LL Parsing.
+\end{abstract}
+
+%--------------------------------------------------------------------%
+% DEDICATION
+%   Dedications, if any.
+\begin{dedication}
+To my grandfather
+\end{dedication}
+
+% Acknowledgements
+\begin{acknowledgments}
+
+I would like to thank all the people who helped me during my thesis.
+
+\end{acknowledgments}
+
+%--------------------------------------------------------------------%
+% CONTENTS, TABLES, FIGURES
+\tableofcontents
+\listoftables
+
+\cleardoublepage
+\phantomsection \label{listoffig}
+\addcontentsline{toc}{chapter}{List of Figures}
+\listof{program}{List of Figures}
+%\listoffigures
+
+\cleardoublepage\pagenumbering{arabic} % Make the page numbers Arabic (1, 2, etc)

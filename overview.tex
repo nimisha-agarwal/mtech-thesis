@@ -1,0 +1,239 @@
+\chapter{Overview of the Tool}
+\label{chap:overview}
+This chapter gives an overview of the tool. It describes the tool from a high level of abstraction in order to give a basic understanding of how it works. There are two main components of the tool - the Core Engine and Interface.
+
+\section{Core Engine}
+\label{sec:core engine}
+There are 5 phases of program compilation - lexical analysis, syntax analysis (parsing), semantic analysis, code optimization and code generation, as described in chapter \ref{chap:background}. This tool is developed for the parsing phase of compiler. Questions are generated to teach various parsing techniques in compiler. These questions are of the form of Multiple Choice Questions (MCQ). The questions are of two types - primary questions and hint questions. The primary questions are of the form of Multiple Choice Multiple Answers (MCMA), while the hint questions are of the form of Multiple Choice Single Answers (MCSA). The system takes a grammar as input and uses that to generate questions in the subsequent stages. Figure 2.1 shows the work-flow of the tool. The different steps in the work-flow are describe below:
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{CoreEngine.png}
+\caption{Core Engine}
+\label{fig:core engine}
+\end{figure}
+
+\subsection{Preprocessing}
+\label{subsec:preprocessing}
+The system takes a grammar as input and performs the necessary processing required to generate problems on and evaluate the solution given by the student, for these problems. Processing includes determining FIRST set, FOLLOW set, LL Parsing Table, LL Parsing moves (on the input string given by the user), SLR Canonical Set of items, SLR Parsing Table and SLR Parsing Moves (on the input string given by the user). These are calculated using the rules described in chapter \ref{chap:background}.
+
+The preprocessing performed depends on the domain of questions to be generated. This option is given by the user. The data structures generated in the preprocessing step are used as input in the next stages of problem generation.
+
+\subsection{Primary Problem Generation}
+\label{subsec:primary problem generation}
+Based on the choice of technique made by the user, primary problems are generated for that domain. For each technique, certain data structures are generated as described in section \ref{subsec:preprocessing}. The tool generates questions on the basis of these data structures. All possible values of these data structures are given as options for the MCQs. Users have to select multiple options which collectively form the solution to the problem.
+
+\begin{example}
+\label{ex:Primary Prob Gen}
+For the grammar used in example \ref{ex:First}, if a user makes a choice of FIRST set, to generate questions, then questions will be generated for all the non-terminals in the grammar. They are of the form:
+
+Which symbols should be included in FIRST[sym] (where sym represents the non-terminals in the grammar) ?
+
+\textbf{Options:} terminals in the grammar
+
+For this grammar, non-terminals are E', E and T, and the terminals are 1, 0 and +.
+\end{example}
+
+This type of primary question is used for all the techniques. But variations occur for some of the techniques. For example, in the case of GOTO function in SLR Canonical set, there are two types of primary questions:
+\begin{example}
+\label{ex:goto primary problems}
+Suppose the grammar used in example \ref{ex:First}, then one type of primary question is
+
+If I is the set of items { [E $\to$ T.E'], [E' $\to$ .], [E' $\to$ .+E], } and X is the symbol +, then which of the following items will be contained in GOTO(I, X) ?
+
+\textbf{Options:} E' $\to$ +.E \quad T $\to$ .0 \quad T $\to$ .1 \quad T $\to$ 1. \quad E $\to$ .TE' \quad T $\to$ 0. \quad E'' $\to$ .E \quad E'' $\to$ E.
+
+And the other type is
+
+In GOTO(I, X), if X is the grammar symbol E, then which of the following itemsets can act as I to get itemset {[E' $\to$ +E.]} as result ?
+
+\textbf{Options:}
+
+I0: T $\to$ .1 \quad E'' $\to$ .E \quad T $\to$ .0 \quad E $\to$ .TE'
+
+I1: E $\to$ T.E' \quad E' $\to$ . \quad E' -> .+E
+
+I2: T $\to$ 1.
+
+I3: T $\to$ 0.
+
+I4: E'' $\to$ E.
+
+I5: T $\to$ .0 \quad E $\to$ .TE' \quad E' $\to$ +.E \quad T $\to$ .1
+
+I6: E $\to$ TE'.    
+
+I7: E' $\to$ +E.
+\end{example}
+
+In some cases, problems are generated for all the values in the data structure generated in the preprocessing step. But in most other cases, the tool selects a random subset of these values. Then the system generates problems on these values. For example, if the questions are to be generated for LL Parsing Table, then instead of filling entries in all the cells of parsing table, random indexes of the cells of LL Parsing table are chosen and the tool generates questions only for those cells.
+\begin{example}
+\label{ex:random number}
+Which grammar rules should be included in the highlighted cell of the LL parsing table ?
+
+\textbf{Options:} T $\to$ 0 \quad T $\to$ 1 \quad E $\to$ T E' \quad E' $\to$ $\epsilon$ \quad E' $\to$ + E \quad ERROR
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+  & \textbf{0} & \textbf{1} & \textbf{+} & \textbf{\$} \\
+ \hline
+ \textbf{T} &   &   & ERROR & ERROR \\
+ \hline
+ \textbf{E} & E $\to$ T E' &   & ERROR & ERROR \\
+ \hline
+ \textbf{E'} & ERROR & ERROR & E'$\to$ + E & ? \\
+ \hline
+\end{tabular}
+\end{center}
+
+Which grammar rules should be included in the highlighted cell of the LL parsing table ?
+
+\textbf{Options:} T $\to$ 0 \quad T $\to$ 1 \quad E $\to$ T E' \quad E' $\to$ $\epsilon$ \quad E' $\to$ + E \quad ERROR
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+  & \textbf{0} & \textbf{1} & \textbf{+} & \textbf{\$} \\
+ \hline
+ \textbf{T} &   &   & ERROR & ERROR \\
+ \hline
+ \textbf{E} & E $\to$ T E' & ? & ERROR & ERROR \\
+ \hline
+ \textbf{E'} & ERROR & ERROR & E'$\to$ + E &  \\
+ \hline
+\end{tabular}
+\end{center}
+
+Which grammar rules should be included in the highlighted cell of the LL parsing table ?
+
+\textbf{Options:} T $\to$ 0 \quad T $\to$ 1 \quad E $\to$ T E' \quad E' $\to$ $\epsilon$ \quad E' $\to$ + E \quad ERROR
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+  & \textbf{0} & \textbf{1} & \textbf{+} & \textbf{\$} \\
+ \hline
+ \textbf{T} & ? &   & ERROR & ERROR \\
+ \hline
+ \textbf{E} & E $\to$ T E' &   & ERROR & ERROR \\
+ \hline
+ \textbf{E'} & ERROR & ERROR & E'$\to$ + E &  \\
+ \hline
+\end{tabular}
+\end{center}
+
+Which grammar rules should be included in the highlighted cell of the LL parsing table ?
+
+\textbf{Options:} T $\to$ 0 \quad T $\to$ 1 \quad E $\to$ T E' \quad E' $\to$ $\epsilon$ \quad E' $\to$ + E \quad ERROR
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+  & \textbf{0} & \textbf{1} & \textbf{+} & \textbf{\$} \\
+ \hline
+ \textbf{T} &   & ? & ERROR & ERROR \\
+ \hline
+ \textbf{E} & E $\to$ T E' &   & ERROR & ERROR \\
+ \hline
+ \textbf{E'} & ERROR & ERROR & E'$\to$ + E &  \\
+ \hline
+\end{tabular}
+\end{center}
+
+\end{example}
+
+\subsection{Answer Evaluation}
+\label{subsec:answer evaluation}
+In this step, the solution given by the user for the problem generated in the previous step, is evaluated. In order to achieve this, the solution given by the user is compared with the data structure computed by the tool in the preprocessing step. If both the solutions match, then the control transfers to the primary Problem Generation step again, as described in section \ref{subsec:primary problem generation}, where it generates the question for the next value.
+
+However, if the solution is wrong, the tool finds the degree of correctness of the solution provided by the user. This implies that the tool takes into account, the incorrect options which are marked in the solution as well as the options in the correct solution which are not marked by the user as a part of her solution. For all such options, hint questions are generated in the next step, in order to guide the user to the correct solution of the problem generated in the previous step.
+\begin{example}
+\label{ex:answer evaluation}
+Suppose that the primary question generated is:
+
+Which symbols should be included in FIRST[T] ?
+
+\textbf{Options:} 1 \qquad 0 \qquad +
+
+Now consider that the user gives the solution as {+ , 0}, whereas the right solution is {0, 1}. On comparison, the system finds that the solution given by the user is wrong. The system thus classifies '+' as incorrectly chosen option and '1' as correct option omitted by the user.
+\end{example}
+
+\subsection{Hints Generation}
+\label{subsec:hints generation}
+In this step, the system generates hint questions when the solution provided by the user is incorrect. Questions are generated, taking into account, the incorrect options marked by the user, as well as the correct options omitted by the user, in her provided solution.
+
+There are two types of hint questions which are generated for all the parsing techniques:
+\begin{itemize}
+\item \textbf{H1:} This type of question is generated for the incorrect options marked in the solution, in order to give a hint to the user that the option marked is wrong.
+\item \textbf{H2:} This is the other type of question which is generated for the correct options which are omitted by the user. The tool generates a MCSA question which tries to make the user realize the sort of scenarios in which the omitted option should be chosen.
+\end{itemize}
+
+Below is a detailed explanation of these questions:
+\begin{itemize}
+\item \textbf{H1:}
+These types of questions are generated in both cases when a correct option is omitted as well as when an incorrect option is chosen. It helps the user understand the rules used in the technique, by which a particular option must or must not be a part of the solution.
+\begin{example}
+\label{ex:ques type 1}
+For the grammar used in example \ref{ex:First}, if the primary question is generated for FIRST[T] and the choices marked by the user are {1, +}, then as '+', is an incorrect option, the hint question of type 1 is generated as:
+
+According to which of the following rules, '+' is a part of FIRST[T] ?  
+\begin{enumerate}
+\item If X is a terminal, then FIRST(X) is \{X\}.
+\item If X is a non-terminal and X $\to$ a$\alpha$ is a production, then add a to FIRST(X). If X $\to$ $\epsilon$ is a production, then add $\epsilon$ to FIRST(X).
+\item If $X \to\ Y_1Y_2....Y_k$ is a production, then for all i such that all of $Y_1,....,Y_{i-1}$ are non-terminals and FIRST($Y_j$) contains $\epsilon$ for $j = 1, 2, ...., i-1$ (i.e $Y_1Y_2....Y_{i-1} \to \epsilon$), add every non-$\epsilon$ symbol in FIRST($Y_i$) to FIRST($X$). If $\epsilon$ is in FIRST($Y_j$) for all j = 1, 2, ....., k, then add $\epsilon$ to FIRST(X).
+\item No valid rule for this symbol.
+\end{enumerate}
+\end{example}
+\textbf{Options:} $1 \qquad 2 \qquad 3 \qquad 4$
+
+\item \textbf{H2:}
+This question is only generated if correct options in the solution are omitted by the user. It helps the user to realize that the omitted option must be a part of the correct solution.
+\begin{example}
+\label{ex:ques type 2}
+For the correct option '0' left out by the user in example \ref{ex:ques type 1}, hint question of type 2 is generated as:
+
+Should '0' be included in FIRST[T] ?
+
+\textbf{Options:} Yes $\qquad$ No
+\end{example}
+\end{itemize}
+
+Then question of type 1 (H1) is also generated for '0' by the system. This helps the user to understand the rules of the techniques properly. Thus, these questions direct the student to the correct solution of the primary question.
+
+For the special case of LL Parsing Table, we have also introduced another type of hint question (H3). A parsing table is a data structure which is used to parse input strings using the grammar. Previously, these input strings were taken as input, as there was no defined way through which the tool can generate one. The current tool, generates these input strings automatically.
+
+If any cell of the parsing table is filled incorrectly, then there exists a valid string for that cell, which is accepted by the grammar, but can not be parsed correctly by the newly filled parsing table. So the system is designed in such a way that it generates the smallest possible input string for the incorrectly filled cell of the LL Parsing Table. Then the hint question is generated using this string, in which the user is presented with the parsing moves on this input string, using the LL Parsing table filled by the user. This gives her a hint that the incorrect entry is filled in that cell.
+
+\begin{example}
+\label{ex:LL table input string question}
+For the grammar used in example \ref{ex:First}, if the primary question is asked to fill the cell M[E'][+] of the LL Parsing Table M. And the entry filled is E' $\to$ $\epsilon$, then the system will generate hint question as:
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ \textbf{STACK} & \textbf{INPUT} & \textbf{OUTPUT} \\
+ \hline
+ \$ E & 0 + 1 \$ & \\
+ \$ E' T & 0 + 1 \$ & E $\to$ T E' \\ 
+ \$ E' 0 & 0 + 1 \$ & T -> 0 \\
+ \$ E' & + 1 \$ & \\ 
+ \$ & + 1 \$ & E' $\to$ $\epsilon$ \\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+  & \textbf{0} & \textbf{1} & \textbf{+} & \textbf{\$} \\
+ \hline
+ \textbf{T} &   &   & ERROR & ERROR \\
+ \hline
+ \textbf{E} & E $\to$ T E' &   & ERROR & ERROR \\
+ \hline
+ \textbf{E'} & ERROR & ERROR & E' $\to$ $\epsilon$ & \\
+ \hline
+\end{tabular}
+\end{center}
+
+LL Parsing on this input string is not working correctly due to the wrong entry made in the cell M[E'][+]. Please correct the value in this cell.
+%Remove either table or cell name
+
+\textbf{OPTIONS:} T $\to$ 0 \quad T $\to$ 1 \quad E $\to$ T E' \quad E' $\to$ epsilon \quad E' $\to$ + E \quad ERROR  
+\end{example}

@@ -1,0 +1,22 @@
+\chapter{Interface}
+\label{interface}
+
+The tool developed in this thesis works as a console application. This tool can also be merged with other interfaces easily. We have developed a file, named as QuestionGenerator.java, which is the main file in the tool, to handle the other parts of the system.
+
+There is another file in the tool called as QuestionSet.java which contains the recursive functions. These functions are called by the function in QuestionGenerator.java.
+
+To merge the tool with Web Interface, one has to merge these two files into one file, say in QuestionGenerator.java. This is required because  HTTP is stateless protocol so cannot handle the recursive functions. The resultant file, QuestionGenerator.java, can then be called by the controller of the system to perform the necessary operations.
+
+There is one more file, QuestionFormat.java. As HTTP is stateless and we cannot store data, so the object of this file can be used to pass data to the server. While merging with web interface, another file of same kind will be required to pass updated data back. In this, these two files can be used to pass data to and fro.
+
+\section{Detailed Explanation of the Files in the Tool}
+\subsection{QuestionGenerator.java}
+This file is required to perform the preprocessing step described in section \ref{subsec:preprocessing}. The function in this file calls the functions in QuestionSet.java for other steps. Grammar is taken as input from the user in the function in QuestionGenerator.java. Then First set, Follow set, LL Parsing Table, LL Parsing Moves, SLR Canonical set, SLR Parsing Table and SLR Parsing Moves are calculated based on the choice for which questions are to be generated. Random numbers are also generated in this function for some techniques. These random numbers are used to select values for which questions are to be generated.
+
+This function calls another function in a separate java file to generate input strings for wrong entered cells of LL Parsing Table. These input strings are then used in hint questions for LL Parsing Table. There are two choices of levels for some techniques. This choice is taken from user in this function, according to which, certain set of questions are generated in next steps.
+
+\subsection{QuestionSet.java}
+There are various functions in this file. All of them are recursive functions. These functions call the functions of core engine to perform other steps such as main problem generation, answer evaluation and hints generation of the tool. The termination condition in these functions decide the end of program. These functions are also used to display question, which it obtains from core engine and take answer of that question, which it pass to the core engine for evaluation.
+
+\subsection{QuestionFormat.java}
+All the data, which is required by the system, to pass to the server (if merged to web interface), is contained in this file. The system uses the object of this class to pass data to and fro. As the problems are dynamically generated in the system, so the amount of information required to be passed is also huge. Therefore, this file contains a lot of variables which represent different kinds of information.
