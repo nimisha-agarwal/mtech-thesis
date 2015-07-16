@@ -15,7 +15,7 @@
 
 % TITLE PAGE
 %   - define \title{} \author{} \date{}
-\title{Online Tutoring System for Compilers}
+\title{A Tool for Teaching Parsing Techniques}
 \author{Nimisha Agarwal}
 \date{July, 2015}
 
@@ -31,9 +31,9 @@
 
 %   - The default report type is preliminary report.
 %      * for a PhD thesis, specify \thesis
-\thesis
+%\thesis
 %      * for a M.Tech./M.Phil./M.Des./M.S. dissertation, specify \dissertation
-%\dissertation
+\dissertation
 %      * for a DIIT/B.Tech./M.Sc.project report, specify \project
 %\project
 %      * for any other type, use  \reporttype{}
@@ -63,36 +63,35 @@
 %--------------------------------------------------------------------%
 % ABSTRACT
 \begin{abstract}
-Online Education System is an emerging field nowadays. It provides the student with a virtual environment for learning the course. As these are the online systems, they can be made available to people in any part of the world without the instructor to be physically present over there. They also help student in solving their problem at any hour of the day. There are many such systems available for the different courses.
+Interactive Educational Systems is an emerging field in today's world. It compensates the drawbacks of traditional classroom based education by making courses more reachable and manageable. Students are able to absorb knowledge at their own pace and time, rather than synchronize with the speed of instruction in classrooms. 
 
-We have developed a system Online Tutoring System for Compilers, to generate problems automatically. We have implemented it for the parsing phase of Compilers. It automatically generates problems for the various techniques involved in this phase. It also evaluates the solution given by the student for these problems and also generate hint questions to reach to the correct solution if the solution given by the student is incorrect. The hint questions are also of different types for different techniques which involves automatic generation of input string for the wrong entered cell of LL Parsing Table.
-
-We have tested the system on various grammars. It is showing good results on all the CFGs we have tested yet. It also performs left factoring of the grammar if it is required as well as test the grammar if it is LR or not before processing for LL Parsing.
+In this thesis, we have developed an tool for teaching the parsing phase of Compilers. The tool tries to impart knowledge of various parsing techniques to users through generated problems and hints. Problems are generated based on a Context Free Grammar (CFG) given as input. The tool evaluates these generated problems upon receiving the solutions to these problems from the users. Upon evaluation, it generates hint questions when the solutions provided by the users are incorrect. The problems follow a general Multiple Choice Question (MCQ) pattern, where a user is given a problem with a set of possible choices. The hint question generation procedures involve different sorts of algorithms, of which the input string generation algorithm is notable. This algorithm enables creation of an input string based on an incorrect answer provided by the user. Features of this sort help users to learn concepts in parsing in better depth, by understanding the mistakes that they commit.
 \end{abstract}
 
 %--------------------------------------------------------------------%
 % DEDICATION
 %   Dedications, if any.
 \begin{dedication}
-To my grandfather
+To my parents
 \end{dedication}
 
 % Acknowledgements
 \begin{acknowledgments}
 
-I would like to thank all the people who helped me during my thesis.
+I would like to express my gratitude towards my thesis supervisor Prof. Amey Karkare, for providing me his valuable guidance and support throughout this thesis work. It would not have been possible to complete this thesis in due time and come up with an effective tool without his aid. He has provided me with the necessary resources to gather knowledge on building tools for programming languages and compilers. He has also enlightened me on solutions to problems which seemed too difficult to solve for me. I am highly thankful for all the motivation that he has provided to accomplish the thesis work.
+
+I would also like to thank Mohit Bhadade for creating a web-based graphical user interface for the tool developed in this thesis. This has made it possible to demonstrate the real-world capabilities of the tool, by making it usable by students.
 
 \end{acknowledgments}
 
 %--------------------------------------------------------------------%
 % CONTENTS, TABLES, FIGURES
 \tableofcontents
-\listoftables
+\listofalgorithms
+\addcontentsline{toc}{chapter}{List of Algorithms}
 
 \cleardoublepage
 \phantomsection \label{listoffig}
-\addcontentsline{toc}{chapter}{List of Figures}
-\listof{program}{List of Figures}
-%\listoffigures
+\listoffigures
 
 \cleardoublepage\pagenumbering{arabic} % Make the page numbers Arabic (1, 2, etc)

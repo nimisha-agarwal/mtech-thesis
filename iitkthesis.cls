@@ -190,16 +190,16 @@
     \cleardoublepage
     \begin{center}
       {\large \bf ABSTRACT}\\[\@thesiscertificatebigskip]
-      Name of student: \textbf{\@author}\hspace{1 cm}Roll no: \textbf{\@rollnum} \\
-      Degree for which submitted: \textbf{\@iitbdegree} \\
-      Department: \textbf{\@department} \\
-      Thesis title: \textbf{\@title} \\
+    %   Name of student: \textbf{\@author}\hspace{1 cm}Roll no: \textbf{\@rollnum} \\
+    %   Degree for which submitted: \textbf{\@iitbdegree} \\
+    %   Department: \textbf{\@department} \\
+    %   Thesis title: \textbf{\@title} \\
     \end{center}
-    \begin{singlespace}
-      Name of Thesis Supervisor: \textbf{\@advisorname}
-    \end{singlespace}
-    Month and year of thesis submission: \textbf{\@date} \\
-    \vspace{1 cm} \\
+    % \begin{singlespace}
+    %   Name of Thesis Supervisor: \textbf{\@advisorname}
+    % \end{singlespace}
+    % Month and year of thesis submission: \textbf{\@date} \\
+    % \vspace{1 cm} \\
 }    
 \def\endabstract{\par\newpage}
 
